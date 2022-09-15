@@ -1,0 +1,54 @@
+package main;
+
+type Any[type ] interface{};
+type Top[type ] struct{};
+type Cell[type T Any[]] struct {
+	read chan T;
+	write chan T
+};
+
+func (this Cell[type T Any[]]) RWCell[type ](x T) Any[] {
+	select {
+		case y := <- this.write:
+			return this.RWCell1[](y)
+		case this.read <- x:
+			return this.RWCell1[](x)
+	}
+};
+
+func (this Cell[type T Any[]]) RWCell1[type ](x T) Any[] {
+	select {
+		case y := <- this.write:
+			return this.RWCell2[](y)
+		case this.read <- x:
+			return this.RWCell2[](x)
+	}
+};
+
+func (this Cell[type T Any[]]) RWCell2[type ](x T) Any[] {
+	select {
+		case y := <- this.write:
+			return this
+		case this.read <- x:
+			return this
+	}
+};
+
+func (this Top[type ]) Incr[type ](c Cell[Top[]]) Top[] {
+	val := <-c.read;
+	c.write <- val;
+	return Top[]{}
+};
+
+
+func (this Top[type ]) MainJob[type ]() Top[] {
+	cell := Cell[Top[]]{make(chan Top[]), make(chan Top[])};
+	go cell.RWCell[](Top[]{});
+	_tmp := this.Incr[](cell);
+	x := <-cell.read;
+	return this
+};
+
+func main() {
+    _ = Top[]{}.MainJob[]()
+}

@@ -1,0 +1,21 @@
+package main;
+
+type tau[type ] interface{};
+
+type int[type ] struct {};
+
+type bool[type ] struct {};
+
+type ts[type alpha tau[]] struct {
+arg1 int[];
+arg2 alpha
+};
+
+type dummy[type ] struct {};
+func (this dummy[type ]) doit[type ]() tau[] {
+return ts[bool[]]{int[]{}, bool[]{}}
+};
+
+func main() {
+_ = dummy[]{}.doit[]().(ts[int[]])//by default, allowstupid = false
+}

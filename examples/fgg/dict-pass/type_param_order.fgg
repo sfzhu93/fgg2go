@@ -1,0 +1,23 @@
+package main;
+
+type Any[type ] interface { value[type]()Dummy[] };
+
+type Bool[type ] struct {};
+
+func (this Bool[type ]) value[type ]() Dummy[] {
+    return Dummy[]{}
+};
+
+type Dummy[type ] struct {};
+
+type Foo[type α Any[], β Any[]] struct {
+    x α; y β
+};
+
+func (this Foo[type A Any[], B Any[]]) m[type ]() Dummy[] {
+    return this.x.value[]()
+};
+
+func main() {
+    _ = Foo[Bool[], Bool[]]{Bool[]{}, Bool[]{}}.m[]()
+}

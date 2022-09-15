@@ -1,0 +1,25 @@
+package main;
+
+type Any[type ] interface{};
+//Foo <: Any
+//type Foo[type ] interface{ Bar[type ]() Top[]; };
+type Top[type ] struct{};
+
+type Item[type a Any[]] struct{};
+
+//func (this Top[type ]) MakeDictSmallPhiIsInterface[type ](p Foo[]) Any[] {
+//    return Item[p]
+//};
+
+func (this Top[type ]) Foo[type ](c Any[]) Top[] {
+	return Top[]{}
+};
+
+
+func (this Top[type ]) MainJob[type ]() Any[] {
+	return Item[chan Top[]]{}
+};
+
+func main() {
+    _ = Top[]{}.MainJob[]()
+}

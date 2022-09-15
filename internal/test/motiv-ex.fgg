@@ -1,0 +1,134 @@
+package main;
+type Any[type ] interface {};
+
+type Bool[type] interface {
+    Not[type]() Bool[];
+	And[type](a Bool[]) Bool[];
+	Or[type](a Bool[]) Bool[];
+    Cond[type a Any[]](br Branches[a]) a
+};
+type Branches[type a Any[]] interface {
+	IfTT[type]() a;
+	IfFF[type]() a
+};
+type TT[type] struct {};
+type FF[type] struct {};
+func (this TT[type]) Not[type]() Bool[] { return FF[]{} };
+func (this FF[type]) Not[type]() Bool[] { return TT[]{} };
+func (this TT[type]) Cond[type a Any[]](br Branches[a]) a { return br.IfTT[]() };
+func (this FF[type]) Cond[type a Any[]](br Branches[a]) a { return br.IfFF[]() };
+func (this TT[type]) And[type](a Bool[]) Bool[] { return a };
+func (this FF[type]) And[type](a Bool[]) Bool[] { return FF[]{} };
+func (this TT[type]) Or[type](a Bool[]) Bool[] { return TT[]{} };
+func (this FF[type]) Or[type](a Bool[]) Bool[] { return a };
+
+//Int
+type Int[type] interface {
+	Inc[type]() Int[];
+	Dec[type]() Int[];
+	Add[type](x Int[]) Int[];
+	Gt[type](x Int[]) Bool[];
+	IsNeg[type]() Bool[];
+	IsZero[type]() Bool[];
+	Equal[type](x Int[]) Bool[]
+};
+type Zero[type] struct {};
+func (x0 Zero[type]) Inc[type]() Int[] { return Pos[]{x0} };
+func (x0 Zero[type]) Dec[type]() Int[] { return Neg[]{x0} };
+func (x0 Zero[type]) Add[type](x Int[]) Int[] { return x };
+func (x0 Zero[type]) Gt[type](x Int[]) Bool[] { return x.IsNeg[]() };
+func (x0 Zero[type]) IsNeg[type]() Bool[] { return FF[]{} };
+func (x0 Zero[type]) IsZero[type]() Bool[] { return TT[]{} };
+func (x0 Zero[type]) Equal[type](x Int[]) Bool[] { return x.IsZero[]() };
+
+type Pos[type] struct { dec Int[] };
+func (x0 Pos[type]) Inc[type]() Int[] { return Pos[]{x0} };
+func (x0 Pos[type]) Dec[type]() Int[] { return x0.dec };
+func (x0 Pos[type]) Add[type](x Int[]) Int[] { return x0.dec.Add[](x.Inc[]()) };
+func (x0 Pos[type]) Gt[type](x Int[]) Bool[] { return x0.dec.Gt[](x.Dec[]()) };
+func (x0 Pos[type]) IsNeg[type]() Bool[] { return FF[]{} };
+func (x0 Pos[type]) IsZero[type]() Bool[] { return FF[]{} };
+func (x0 Pos[type]) Equal[type](x Int[]) Bool[] { return x0.dec.Equal[](x.Dec[]()) };
+
+type Neg[type] struct { inc Int[] };
+func (x0 Neg[type]) Inc[type]() Int[] { return x0.inc };
+func (x0 Neg[type]) Dec[type]() Int[] { return Neg[]{x0} };
+func (x0 Neg[type]) Add[type](x Int[]) Int[] { return x0.inc.Add[](x.Dec[]()) };
+func (x0 Neg[type]) Gt[type](x Int[]) Bool[] { return x0.inc.Gt[](x.Inc[]()) };
+func (x0 Neg[type]) IsNeg[type]() Bool[] { return TT[]{} };
+func (x0 Neg[type]) IsZero[type]() Bool[] { return FF[]{} };
+func (x0 Neg[type]) Equal[type](x Int[]) Bool[] { return x0.inc.Equal[](x.Inc[]()) };
+
+type Ints[type ] struct {};
+func (d Ints[type ]) _1[type ]() Int[] { return Pos[]{Zero[]{}} };
+func (d Ints[type ]) _2[type ]() Int[] { return d._1[]().Add[](d._1[]()) };
+func (d Ints[type ]) _3[type ]() Int[] { return d._2[]().Add[](d._1[]()) };
+func (d Ints[type ]) _4[type ]() Int[] { return d._3[]().Add[](d._1[]()) };
+func (d Ints[type ]) _5[type ]() Int[] { return d._4[]().Add[](d._1[]()) };
+func (d Ints[type ]) _6[type ]() Int[] { return d._5[]().Add[](d._1[]()) };
+func (d Ints[type ]) __1[type ]() Int[] { return Neg[]{Zero[]{}} };
+func (d Ints[type ]) __2[type ]() Int[] { return d.__1[]().Add[](d.__1[]()) };
+func (d Ints[type ]) __3[type ]() Int[] { return d.__2[]().Add[](d.__1[]()) };
+func (d Ints[type ]) __4[type ]() Int[] { return d.__3[]().Add[](d.__1[]()) };
+func (d Ints[type ]) __5[type ]() Int[] { return d.__4[]().Add[](d.__1[]()) };
+
+type Function[type T Any[], S Any[]] interface {
+    Apply[type ](in T) S
+};
+
+type Pipeline[type T Any[]] interface {
+    Map[type S Any[]](f Function[T,S]) Pipeline[S]
+};
+
+type Stream[type T Any[]] struct {
+    in <-chan T
+};
+
+func (this Stream[type T Any[]]) Map[type S Any[]]
+  (f Function[T,S]) Pipeline[S] {
+    out := make(chan S);
+    go this._Map[S](f, out);
+    return Stream[S]{out}
+};
+
+func (this Stream[type T Any[]]) _Map[type S Any[]]
+  (f Function[T,S], out chan<- S) Any[] {
+    val := <-this.in;
+    out <- f.Apply[](val);
+    return this._Map[S](f,out)
+};
+
+type StreamGen[type ] struct {};
+type Pair[type T Any[], R Any[]] struct {fst T; snd R};
+
+func (this StreamGen[type ]) Gen[type T Any[], R Any[]]
+  (f Function[T, Pair[R,T]], init T) Pipeline[R] {
+    out := make(chan R);
+    go this._Gen[T,R](f, init, out);
+    return Stream[R]{out}
+};
+
+func (this StreamGen[type ]) _Gen[type T Any[], R Any[]]
+  (f Function[T, Pair[R,T]], state T, out chan<- R) Any[] {
+    next := f.Apply[](state);
+    out <- next.fst;
+    return this._Gen[T,R](f, next.snd, out)
+};
+
+type Add[type T Any[], S Any[]] struct {y Int[]};
+func (this Add[type T Any[], S Any[]]) Apply[type ](in Int[]) Pair[Int[], Int[]] {
+    return Pair[Int[], Int[]]{in, in.Add[](this.y)} 
+};
+
+type mainJob[type ] struct {};
+func (this mainJob[type ]) mymain[type ]() mainJob[] {
+    f := Add[Int[], Pair[Int[], Int[]]]{Ints[]{}._1[]()};
+    pipeline := StreamGen[]{}.Gen[Int[], Int[]](f, Ints[]{}._2[]()).Map[Pair[Int[], Int[]]](f);
+    Pair1 := <-pipeline.(Stream[Pair[Int[], Int[]]]).in; //Pair1.fst == 1
+    Pair2 := <-pipeline.(Stream[Pair[Int[], Int[]]]).in; //4
+    return this
+};
+
+func main() {
+    _ = mainJob[]{}.mymain[]()
+}

@@ -1,0 +1,42 @@
+package main;
+type Any[type] interface{};
+type Dummy[type] struct{};
+type int[type] struct{};
+type string_[type] struct{};
+
+func (this Dummy[type]) x[type ](a Any[], b Any[]) Dummy[] {
+    return Dummy[]{}
+};
+type List[type a Any[]] interface {
+	Reverse[type ]() List[a]
+};
+type Cons[type a Any[]] struct {
+	head a;
+	tail List[a]
+};
+func (this Cons[type a Any[]]) Reverse[type ]() List[a] {
+    niltail := this.tail.(Nil[a]).Reverse[]();
+    constail := this.tail.(Cons[a]).Reverse[]();
+    listtail := this.tail.Reverse[]();
+    t := Dummy[]{}.x[](constail, constail);
+    return Nil[a]{}
+};
+type Nil[type a Any[]] struct {};
+func (this Nil[type a Any[]]) Reverse[type]() List[a] {
+	return this
+};
+func (this Dummy[type ]) StaticReverse[type a Any[]](xs List[a]) List[a] {
+    niltail := xs.(Nil[a]).Reverse[]();
+    constail := xs.(Cons[a]);
+    t := Dummy[]{}.x[](niltail, constail);
+    return Nil[a]{}
+};
+func (this Dummy[type ]) Main1[type]() Dummy[] {
+    return this.x[](Cons[int[]]{int[]{}, Nil[int[]]{}}.Reverse[](), Dummy[]{}.StaticReverse[int[]](Nil[int[]]{}))
+};
+func (this Dummy[type ]) Main2[type]() Dummy[] {
+    return this.x[](Cons[string_[]]{string_[]{}, Nil[string_[]]{}}.Reverse[](), Dummy[]{}.StaticReverse[string_[]](Nil[string_[]]{}))
+};
+func main() {
+    _ = Dummy[]{}.Main1[]().Main2[]()
+}

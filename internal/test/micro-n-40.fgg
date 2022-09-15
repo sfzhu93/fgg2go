@@ -1,0 +1,190 @@
+package main;
+
+type Color[type ] interface{};
+type Top[type ] struct {};
+//func (this Top[type ]) Recv[type b1 Color[]](x chan b1) b1 {return <-x};
+func (this Top[type ]) Op[type ]() Top[] {return Top[]{}};
+
+type Red[type ] struct {};
+type Blue[type ] struct {};
+
+func (this Top[type ]) do[type ](x Color[]) Top[] {
+return this
+};
+type Base[type b1 Color[],b2 Color[]] interface {
+g_chan[type]() Top[];
+g1[type ](p1 b1,p2 b2) Base[b1,b2];
+g2[type ](p1 b1,p2 b2) Base[b1,b2];
+g3[type ](p1 b1,p2 b2) Base[b1,b2];
+g4[type ](p1 b1,p2 b2) Base[b1,b2];
+g5[type ](p1 b1,p2 b2) Base[b1,b2];
+g6[type ](p1 b1,p2 b2) Base[b1,b2];
+g7[type ](p1 b1,p2 b2) Base[b1,b2];
+g8[type ](p1 b1,p2 b2) Base[b1,b2];
+g9[type ](p1 b1,p2 b2) Base[b1,b2];
+g10[type ](p1 b1,p2 b2) Base[b1,b2];
+g11[type ](p1 b1,p2 b2) Base[b1,b2];
+g12[type ](p1 b1,p2 b2) Base[b1,b2];
+g13[type ](p1 b1,p2 b2) Base[b1,b2];
+g14[type ](p1 b1,p2 b2) Base[b1,b2];
+g15[type ](p1 b1,p2 b2) Base[b1,b2];
+g16[type ](p1 b1,p2 b2) Base[b1,b2];
+g17[type ](p1 b1,p2 b2) Base[b1,b2];
+g18[type ](p1 b1,p2 b2) Base[b1,b2];
+g19[type ](p1 b1,p2 b2) Base[b1,b2];
+g20[type ](p1 b1,p2 b2) Base[b1,b2];
+g21[type ](p1 b1,p2 b2) Base[b1,b2];
+g22[type ](p1 b1,p2 b2) Base[b1,b2];
+g23[type ](p1 b1,p2 b2) Base[b1,b2];
+g24[type ](p1 b1,p2 b2) Base[b1,b2];
+g25[type ](p1 b1,p2 b2) Base[b1,b2];
+g26[type ](p1 b1,p2 b2) Base[b1,b2];
+g27[type ](p1 b1,p2 b2) Base[b1,b2];
+g28[type ](p1 b1,p2 b2) Base[b1,b2];
+g29[type ](p1 b1,p2 b2) Base[b1,b2];
+g30[type ](p1 b1,p2 b2) Base[b1,b2];
+g31[type ](p1 b1,p2 b2) Base[b1,b2];
+g32[type ](p1 b1,p2 b2) Base[b1,b2];
+g33[type ](p1 b1,p2 b2) Base[b1,b2];
+g34[type ](p1 b1,p2 b2) Base[b1,b2];
+g35[type ](p1 b1,p2 b2) Base[b1,b2];
+g36[type ](p1 b1,p2 b2) Base[b1,b2];
+g37[type ](p1 b1,p2 b2) Base[b1,b2];
+g38[type ](p1 b1,p2 b2) Base[b1,b2];
+g39[type ](p1 b1,p2 b2) Base[b1,b2];
+g40[type ](p1 b1,p2 b2) Base[b1,b2]};
+type Derived[type b1 Color[],b2 Color[]] struct{};
+func (this Derived[type b1 Color[],b2 Color[]]) g_chan[type ]() Top[] {
+return Top[]{}.Op[]().Op[]()
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g1[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g2[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g3[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g4[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g5[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g6[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g7[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g8[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g9[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g10[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g11[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g12[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g13[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g14[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g15[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g16[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g17[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g18[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g19[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g20[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g21[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g22[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g23[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g24[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g25[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g26[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g27[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g28[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g29[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g30[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g31[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g32[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g33[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g34[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g35[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g36[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g37[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g38[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g39[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g40[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Top[type ]) f0[type b1 Color[],b2 Color[], d_ Base[b1,b2]](x d_, p1 b1,p2 b2) Top[] {
+return this.do[](x.g1[](p1,p2)).do[](x.g2[](p1,p2)).do[](x.g3[](p1,p2)).do[](x.g4[](p1,p2)).do[](x.g5[](p1,p2)).do[](x.g6[](p1,p2)).do[](x.g7[](p1,p2)).do[](x.g8[](p1,p2)).do[](x.g9[](p1,p2)).do[](x.g10[](p1,p2)).do[](x.g11[](p1,p2)).do[](x.g12[](p1,p2)).do[](x.g13[](p1,p2)).do[](x.g14[](p1,p2)).do[](x.g15[](p1,p2)).do[](x.g16[](p1,p2)).do[](x.g17[](p1,p2)).do[](x.g18[](p1,p2)).do[](x.g19[](p1,p2)).do[](x.g20[](p1,p2)).do[](x.g21[](p1,p2)).do[](x.g22[](p1,p2)).do[](x.g23[](p1,p2)).do[](x.g24[](p1,p2)).do[](x.g25[](p1,p2)).do[](x.g26[](p1,p2)).do[](x.g27[](p1,p2)).do[](x.g28[](p1,p2)).do[](x.g29[](p1,p2)).do[](x.g30[](p1,p2)).do[](x.g31[](p1,p2)).do[](x.g32[](p1,p2)).do[](x.g33[](p1,p2)).do[](x.g34[](p1,p2)).do[](x.g35[](p1,p2)).do[](x.g36[](p1,p2)).do[](x.g37[](p1,p2)).do[](x.g38[](p1,p2)).do[](x.g39[](p1,p2)).do[](x.g40[](p1,p2)).do[](x.g_chan[]())
+};
+func (this Top[type ]) f2[type b1 Color[],b2 Color[]](p1 b1,p2 b2) Top[] {
+return this.f0[b1,b2, Derived[b1,b2]](Derived[b1,b2]{}, p1,p2)
+};func (this Top[type ]) f1[type b1 Color[],b2 Color[]]( p1 b1,p2 b2) Top[] {
+return this.f2[b1,b2](p1,p2)
+};
+
+func main(){
+_ = Top[]{}.f1[Red[], Red[]](Red[]{},Red[]{}).f1[Red[], Blue[]](Red[]{},Blue[]{}).f1[Blue[], Red[]](Blue[]{},Red[]{}).f1[Blue[], Blue[]](Blue[]{},Blue[]{})}

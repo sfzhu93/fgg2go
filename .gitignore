@@ -1,0 +1,9 @@
+parser/fg
+parser/fgg
+bin/
+*.swp
+_sess.vim
+_scratch.vim
+.vscode
+_sess.code-workspace
+.idea

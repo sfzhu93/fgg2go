@@ -1,0 +1,21 @@
+//$ go run github.com/rhu1/fgg -fgg [-monomc=--] -v fgg/examples/monom/box/box.fgg
+
+//$ go run github.com/rhu1/fgg -fgg -oblitc=tmp/test/fgr/box/box.go -v fgg/examples/monom/box/box.fgg
+
+package main;
+
+type Any(type ) interface {};
+type Box(type a Any()) struct { f a };
+//func (x0 Box(type a Any())) unbox(type )() a { return x0.f };
+
+type D(type ) struct {};
+func (x0 D(type )) bad(type a Any())(x1 a)) Any() {
+	return D(){}.bad(Box(a))(Box(a){x1})
+};  
+/*func (x0 D(type )) bad(type a Any())(x1 a)) a {
+	return D(){}.bad(Box(a))(Box(a){x1}).unbox()()
+};*/
+
+type A(type ) struct {};
+func main() { _ =  D(){}.bad(A())(A(){})  }
+

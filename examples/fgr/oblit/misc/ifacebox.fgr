@@ -1,0 +1,19 @@
+package main;
+type HasRep interface { getRep() Rep };
+type Any interface { HasRep };
+type Func interface { HasRep; apply(a HasRep) HasRep };
+type Box interface { HasRep; Map(B Rep, f HasRep) HasRep };
+type ABox struct { A Rep; value Any };
+func (x0 ABox) getRep() Rep { return ABox[[x0.A]] };
+func (a ABox) Map(B Rep, f HasRep) HasRep { return ABox{B, f.(Func).apply(a.value.(Any)).(Any)} };
+type Dummy struct { };
+func (x0 Dummy) getRep() Rep { return Dummy[[]] };
+type D struct { };
+func (x0 D) getRep() Rep { return D[[]] };
+type E struct { };
+func (x0 E) getRep() Rep { return E[[]] };
+type DtoE struct { };
+func (x0 DtoE) getRep() Rep { return DtoE[[]] };
+func (x0 DtoE) apply(d HasRep) HasRep { return E{} };
+func (x Dummy) takeBox(b HasRep) HasRep { return b.(Box).Map(E[[]], DtoE{}).(Box) };
+func main() { _ = Dummy{}.takeBox(ABox{D[[]], D{}}).(Any) }

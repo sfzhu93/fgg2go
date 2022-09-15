@@ -1,0 +1,21 @@
+package main;
+
+type int[type ] struct {};
+
+type bool[type ] struct {};
+
+type any[type ] interface {};
+
+type tI[type ] interface{
+m[type ](in int[]) any[]
+};
+
+type uS[type ] struct {};
+
+func (this uS[type ]) m[type ](int int[]) any[] {return this};
+
+func (this bool[type ]) foo[type ](x any[]) any[] {return x};
+
+func main() {
+_ = bool[]{}.foo[](uS[]{}).(tI[])
+}

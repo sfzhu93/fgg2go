@@ -1,0 +1,49 @@
+package main;
+/*
+A <: B
+B <: C
+A <: D
+D <: C
+¬ B <: D
+¬ D <: B
+A <: B <:  C
+    C
+   / \
+  B   D
+   \ /
+    A
+*/
+
+type CImpl[type ] struct {
+
+};
+
+type C[type x C[x]] interface {Cc[type ]() x};
+type B[type x C[x]] interface {Bb[type]() x};
+type D[type x C[x]] interface {Dd[type]() x};
+type A[type c C[c], x B[c], y D[c]] interface {Aa[type](yy y) x};
+
+type Impl[type ] struct {
+
+};
+
+
+func (this Impl[type]) Cc[type]() Impl[] {
+    return this
+};
+
+func (this Impl[type]) Bb[type]() Impl[] {
+    return this
+};
+
+func (this Impl[type]) Dd[type]() Impl[] {
+    return this
+};
+
+func (this Impl[type]) Aa[type](y D[Impl[]]) B[Impl[]] {
+    return this
+};
+
+func main() {
+_ = Impl[]{}.Cc[]().Bb[]()
+}

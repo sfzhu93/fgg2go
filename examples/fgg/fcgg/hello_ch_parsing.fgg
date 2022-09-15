@@ -1,0 +1,32 @@
+package main;
+//import "fmt";
+type World[type ] struct{};
+
+func (this World[type ]) doit[type ](y World[]) World[] {
+	go this.newgoroutine[](y);
+	t := make(chan World[] );
+	t <- y;
+    x := <- t;
+	close(t);
+	return x//our syntax forces an ending of return or select
+};
+
+func (this World[type ]) select_parse[type ](y <-chan World[]) World[] {
+	select {
+	case y <- this:
+		return this//method body always terminates with select
+	case x := <- y:
+		select {}
+	default:
+		return World[]{}
+	}
+};
+
+func (this World[type ]) test_chan_ambiguity_parsing[type ](y chan <-chan World[]) World[] {
+	return World[]{}
+};
+
+func main() {
+    _ = World[]{}.doit[](World[]{})
+    //fmt.Printf("%#v", World[]{}.hello())
+}

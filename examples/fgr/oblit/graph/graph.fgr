@@ -1,0 +1,8 @@
+package main;
+type HasRep interface { getRep() Rep };
+type Any interface { HasRep };
+type Edge interface { HasRep; Source() HasRep; Target() HasRep };
+type Vertex interface { HasRep; Edges() HasRep };
+type A struct { };
+func (x0 A) getRep() Rep { return A[[]] };
+func main() { _ = A{} }

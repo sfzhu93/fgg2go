@@ -1,0 +1,61 @@
+
+package main;
+
+type Color[type ] interface{};
+type Top[type ] struct {};
+//func (this Top[type ]) Recv[type b1 Color[]](x chan b1) b1 {return <-x};
+//func (this Top[type ]) Recv[type ](x chan Top[]) Top[] {return <-x};
+func (this Top[type ]) Op[type ]() Top[] {return Top[]{}};
+
+type Black[type ] struct {};
+type White[type ] struct {};
+
+func (this Top[type ]) do[type ](x Color[]) Top[] {
+return this
+};
+type Base[type b1 Color[],b2 Color[],b3 Color[],b4 Color[],b5 Color[],b6 Color[],b7 Color[],b8 Color[],b9 Color[]] interface {
+g_chan[type](value b1) Top[];
+g1[type ](p1 b1,p2 b2,p3 b3,p4 b4,p5 b5,p6 b6,p7 b7,p8 b8,p9 b9) Base[b1,b2,b3,b4,b5,b6,b7,b8,b9];
+g2[type ](p1 b1,p2 b2,p3 b3,p4 b4,p5 b5,p6 b6,p7 b7,p8 b8,p9 b9) Base[b1,b2,b3,b4,b5,b6,b7,b8,b9]};
+type Derived[type b1 Color[],b2 Color[],b3 Color[],b4 Color[],b5 Color[],b6 Color[],b7 Color[],b8 Color[],b9 Color[]] struct{};
+func (this Derived[type b1 Color[],b2 Color[],b3 Color[],b4 Color[],b5 Color[],b6 Color[],b7 Color[],b8 Color[],b9 Color[]]) g_chan[type ](value b1) Top[] {
+return Top[]{}.Op[]().Op[]()
+};
+func (this Derived[type b1 Color[],b2 Color[],b3 Color[],b4 Color[],b5 Color[],b6 Color[],b7 Color[],b8 Color[],b9 Color[]]) g1[type ](p1 b1,p2 b2,p3 b3,p4 b4,p5 b5,p6 b6,p7 b7,p8 b8,p9 b9) Base[b1,b2,b3,b4,b5,b6,b7,b8,b9]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[],b3 Color[],b4 Color[],b5 Color[],b6 Color[],b7 Color[],b8 Color[],b9 Color[]]) g2[type ](p1 b1,p2 b2,p3 b3,p4 b4,p5 b5,p6 b6,p7 b7,p8 b8,p9 b9) Base[b1,b2,b3,b4,b5,b6,b7,b8,b9]{
+ return this
+};
+func (this Top[type ]) f0[type b1 Color[],b2 Color[],b3 Color[],b4 Color[],b5 Color[],b6 Color[],b7 Color[],b8 Color[],b9 Color[], d_ Base[b1,b2,b3,b4,b5,b6,b7,b8,b9]](x d_, p1 b1,p2 b2,p3 b3,p4 b4,p5 b5,p6 b6,p7 b7,p8 b8,p9 b9) Top[] {
+return this.do[](x.g1[](p1,p2,p3,p4,p5,p6,p7,p8,p9)).do[](x.g2[](p1,p2,p3,p4,p5,p6,p7,p8,p9)).do[](x.g_chan[](p1))
+};
+func (this Top[type ]) f1[type b1 Color[],b2 Color[],b3 Color[],b4 Color[],b5 Color[],b6 Color[],b7 Color[],b8 Color[],b9 Color[]](p1 b1,p2 b2,p3 b3,p4 b4,p5 b5,p6 b6,p7 b7,p8 b8,p9 b9) Top[] {
+return this.f0[b1,b2,b3,b4,b5,b6,b7,b8,b9, Derived[b1,b2,b3,b4,b5,b6,b7,b8,b9]](Derived[b1,b2,b3,b4,b5,b6,b7,b8,b9]{}, p1,p2,p3,p4,p5,p6,p7,p8,p9)
+};func (this Top[type ]) f2[type b1 Color[],b2 Color[],b3 Color[],b4 Color[],b5 Color[],b6 Color[],b7 Color[],b8 Color[]]( p1 b1,p2 b2,p3 b3,p4 b4,p5 b5,p6 b6,p7 b7,p8 b8) Top[] {
+return this.f1[b1,b2,b3,b4,b5,b6,b7,b8, Black[]](p1,p2,p3,p4,p5,p6,p7,p8, Black[]{}).f1[b1,b2,b3,b4,b5,b6,b7,b8, White[]](p1,p2,p3,p4,p5,p6,p7,p8, White[]{})
+};
+func (this Top[type ]) f3[type b1 Color[],b2 Color[],b3 Color[],b4 Color[],b5 Color[],b6 Color[],b7 Color[]]( p1 b1,p2 b2,p3 b3,p4 b4,p5 b5,p6 b6,p7 b7) Top[] {
+return this.f2[b1,b2,b3,b4,b5,b6,b7, Black[]](p1,p2,p3,p4,p5,p6,p7, Black[]{}).f2[b1,b2,b3,b4,b5,b6,b7, White[]](p1,p2,p3,p4,p5,p6,p7, White[]{})
+};
+func (this Top[type ]) f4[type b1 Color[],b2 Color[],b3 Color[],b4 Color[],b5 Color[],b6 Color[]]( p1 b1,p2 b2,p3 b3,p4 b4,p5 b5,p6 b6) Top[] {
+return this.f3[b1,b2,b3,b4,b5,b6, Black[]](p1,p2,p3,p4,p5,p6, Black[]{}).f3[b1,b2,b3,b4,b5,b6, White[]](p1,p2,p3,p4,p5,p6, White[]{})
+};
+func (this Top[type ]) f5[type b1 Color[],b2 Color[],b3 Color[],b4 Color[],b5 Color[]]( p1 b1,p2 b2,p3 b3,p4 b4,p5 b5) Top[] {
+return this.f4[b1,b2,b3,b4,b5, Black[]](p1,p2,p3,p4,p5, Black[]{}).f4[b1,b2,b3,b4,b5, White[]](p1,p2,p3,p4,p5, White[]{})
+};
+func (this Top[type ]) f6[type b1 Color[],b2 Color[],b3 Color[],b4 Color[]]( p1 b1,p2 b2,p3 b3,p4 b4) Top[] {
+return this.f5[b1,b2,b3,b4, Black[]](p1,p2,p3,p4, Black[]{}).f5[b1,b2,b3,b4, White[]](p1,p2,p3,p4, White[]{})
+};
+func (this Top[type ]) f7[type b1 Color[],b2 Color[],b3 Color[]]( p1 b1,p2 b2,p3 b3) Top[] {
+return this.f6[b1,b2,b3, Black[]](p1,p2,p3, Black[]{}).f6[b1,b2,b3, White[]](p1,p2,p3, White[]{})
+};
+func (this Top[type ]) f8[type b1 Color[],b2 Color[]]( p1 b1,p2 b2) Top[] {
+return this.f7[b1,b2, Black[]](p1,p2, Black[]{}).f7[b1,b2, White[]](p1,p2, White[]{})
+};
+func (this Top[type ]) f9[type b1 Color[]]( p1 b1) Top[] {
+return this.f8[b1, Black[]](p1, Black[]{}).f8[b1, White[]](p1, White[]{})
+};
+func main(){
+_ = Top[]{}.f9[Black[]](Black[]{}).f9[White[]](White[]{})
+}

@@ -1,0 +1,277 @@
+package main
+
+/*
+	This is an example of how you might implement pipelines using generics
+	It is actually written for the go2go prototype which is why we make 
+	use of some features not in fcgg. 
+
+	It should not be too complex to translate some aspects into fcgg
+*/
+
+import (
+	"fmt"
+)
+
+type Any interface{}
+func main() {
+	fmt.Println("hi")
+	l := StreamFromProducer[int,int](SequentialNumbers,0).
+			Filter(func(i int) bool{
+				return i%2 == 0
+			}).
+			Limit(10).
+			FanOut(3).
+			EndoMap(Square).
+			Collect(ToList[int]{})
+	fmt.Println(l)
+}
+
+func Square(i int) int {
+	return i * i
+}
+
+/*#################
+## Pipeline
+#################*/
+
+type Unit struct{}
+type Predicate[DOM any] func(DOM) bool
+
+/*The pipeline interface gives us a single interface for both
+sequential and parallel streams
+
+Unfortunatly the go2go prototype does not allow method parameters, so we 
+are unable to implement map in the standard way. Instead we have an "EndoMap"
+method which preserves the type of the pipline.*/
+type Pipeline[DOM any] interface {
+	/*Intermediate Operations*/
+	// Map[CODOM any](func(DOM) CODOM) Pipeline[CODOM]
+	EndoMap(func(DOM) DOM) Pipeline[DOM]
+	Filter(Predicate[DOM]) Pipeline[DOM]
+	Limit(int) Pipeline[DOM]
+}
+
+/*#################
+## Stream
+#################*/
+
+
+type Stream[DOM any] struct {
+	in <-chan DOM
+	/* Done allows later pipeline stages to communicate with prior stages and allow 
+	cleanup once no more values are needed from the prior stage */
+	done chan Unit 
+}
+
+/* Given a producer of type T→T×S, this method finds the final coalgebra of that producer via anamorphism*/
+func StreamFromProducer[T, S Any](producer Producer[T, S], init T) Stream[S] {
+	out := make(chan S)
+	done := make(chan Unit)
+	go func(intVal T){
+		var extVal S
+		defer close(out)
+		for {
+			intVal, extVal = producer(intVal)
+			select {
+				case out <- extVal :
+				case <- done :
+					return
+			}
+		}
+	}(init)
+	return Stream[S]{out, done}
+}
+
+/*Map is implemented as expected*/
+// func (this Stream[DOM Any]) Map[CODOM Any](fn func(DOM) CODOM) Stream[CODOM] {
+// 	out := make(chan CODOM)
+// 	go func() {
+// 		defer close(out)
+// 		for v := range this.in {
+// 			select {
+// 				case out <- fn(v) :
+// 				case <- this.done :
+// 					return 
+// 			}
+// 		}
+// 	}()
+// 	return Stream[CODOM]{out, this.done}
+// }
+
+func (this Stream[DOM /*Any*/]) EndoMap(fn func(DOM) DOM) Stream[DOM] {
+	out := make(chan DOM)
+	go func() {
+		defer close(out)
+		for v := range this.in {
+			select {
+				case out <- fn(v) :
+				case <- this.done :
+					return 
+			}
+		}
+	}()
+	return Stream[DOM]{out, this.done}
+}
+
+/*Filter will remove any values from the stream which does not satisfy the predicate*/
+func (this Stream[DOM /*Any*/]) Filter(pred Predicate[DOM]) Stream[DOM]{
+	out := make(chan DOM)
+	go func() {
+		defer close(out)
+		for v := range this.in {
+			if (pred(v)) {
+				select {
+					case out <- v : 
+					case <- this.done : return
+				}
+			}
+		}
+	}()
+	return Stream[DOM]{out, this.done}
+}
+
+/*Limit simply takes the first l values from the stream and then closes the incoming stream*/
+func (this Stream[DOM]) Limit(l int) Stream[DOM] {
+	out := make(chan DOM)
+	go func() {
+		for ; l >= 0; l-- {
+			select {
+				case <- this.done : return
+				case v := <- this.in :
+					select{
+						case <- this.done : return
+						case out <- v :
+					}
+			}
+		}
+		close(out)
+	}()
+	return Stream[DOM]{out, this.done}
+}
+
+/*Collects the stream using catamorphism as defined by col */
+/*func (this Stream[DOM]) Collect[T Any](col SequentialCollector[DOM, T]) T */
+func (this Stream[DOM]) Collect(col SequentialCollector[DOM, []DOM]) []DOM {
+	l := col.Zero()
+	for v := range this.in {
+		l = col.Fold(v, l)
+	}
+	close(this.done)
+	return l
+}
+
+/*#################
+## Producers
+#################*/
+
+type Producer[T, S Any] func(T) (T,S)
+
+func SequentialNumbers(i int) (int, int) {
+	return i + 1, i
+}
+
+/*#################
+## Collector
+#################*/
+
+// Defines list fold like cato
+type SequentialCollector[A, B Any] interface {
+	Zero() B
+	Fold(A, B) B 
+}
+
+// Defines tree fold like cato
+type ParallelCollector[A, B Any] interface {
+	Zero() B
+	Fold(A, B) B 
+	Combine(B, B) B 
+}
+
+
+
+type ToList[A Any] struct {}
+
+func (this ToList[A]) Zero() []A {
+	return []A{}
+}
+
+func (this ToList[A]) Fold(x A, xs []A) []A {
+	return append(xs, x)
+}
+
+func (this ToList[A]) Combine(xs []A, ys []A) []A {
+	return append(xs, ys...)
+}
+
+
+
+/*#################
+## ConcurrentStream
+#################*/
+
+type ConcurrentStream[DOM any] struct {
+	in []<-chan DOM
+	done chan Unit
+}
+
+
+/* Distributes data from a single sequential stream to n streams. 
+IF one of the sink streams is never read from then we may loose data from 
+the inital stream
+*/
+func (this Stream[DOM /*Any*/]) FanOut (n int) ConcurrentStream[DOM] {
+	out := []<-chan DOM{}
+	for i := 0; i < n; i++ {
+		out_ := make(chan DOM)
+		out = append(out, out_)
+		go func(out__ chan DOM){
+			defer close(out__)
+			for v := range this.in {
+				select {
+				case out__ <- v:
+				case <- this.done : return
+				}
+			}
+		}(out_)
+	}
+	return ConcurrentStream[DOM]{out, this.done}
+}
+
+func (this ConcurrentStream[DOM /*Any*/]) EndoMap(fn func(DOM) DOM) ConcurrentStream[DOM] {
+	out := []<-chan DOM{}
+	for _, in_ := range this.in {
+		out_ := Stream[DOM]{in_, this.done}.EndoMap(fn).in
+		out = append(out, out_)
+	}
+	return ConcurrentStream[DOM]{out, this.done}
+}
+
+func (this ConcurrentStream[DOM /*Any*/]) Filter(pred Predicate[DOM]) ConcurrentStream[DOM]{
+	out := []<-chan DOM{}
+	for _, in_ := range this.in {
+		out_ := Stream[DOM]{in_, this.done}.Filter(pred).in
+		out = append(out, out_)
+	}
+	return ConcurrentStream[DOM]{out, this.done}
+}
+
+func (this ConcurrentStream[DOM /*Any*/]) Collect(col ParallelCollector[DOM, []DOM]) []DOM {
+	c := make(chan []DOM)
+	for _, in := range this.in {
+		go func(in_ <-chan DOM){
+			l := col.Zero()
+			for v := range in_ {
+				l = col.Fold(v,l)
+			}
+			c <- l
+		}(in)
+	}
+
+	l_ := col.Zero()
+	for i := 0; i < len(this.in); i++{
+		l_ = col.Combine(l_, <- c)
+	}
+	close(c)
+	close(this.done)
+	return l_
+}

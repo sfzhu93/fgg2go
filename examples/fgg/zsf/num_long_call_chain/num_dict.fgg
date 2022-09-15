@@ -1,0 +1,36 @@
+package main;
+
+type Any[type ] interface {};
+
+type Num [type a Num[a]] interface {
+Plus[type ] (that a) a
+};
+
+type Int[type ] struct {
+};
+
+func (this Int[type ]) Plus[type ](that Int[type ]) Int[type ] {
+return that//A fake plus operation! Peano numbers are too wordy, so just make it simple...
+};
+
+
+func (this TimesTwoFactory[type ]) TimesTwo[type a Num[a]](x a) a {
+return x.Plus[](x)
+};
+
+type TimesTwoFactory[type ] struct {
+
+};
+
+func (this TimesThreeFactory[type ]) TimesThree[type a Num[a]](x a) a {
+return x.Plus[](TimesTwoFactory[]{}.TimesTwo[a](x))
+};
+
+type TimesThreeFactory[type ] struct {
+
+};
+
+
+func main() {
+_ = TimesThreeFactory[]{}.TimesThree[Int[]](Int[]{})
+}
