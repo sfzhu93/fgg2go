@@ -1,0 +1,31 @@
+// ~/go/bin/fcgg -dictpass -fgg non_variance.fgg
+package main;
+
+type Any[type ] interface {};
+type Dummy[type ] struct {};
+type Bool[type] struct {};
+type Int[type] struct {};
+
+type Foo[type T Any[]] interface {
+    Do[type S Any[]](a S, b Bool[]) T
+};
+
+type Bar[type T Any[]] struct {};
+
+// $\vdash$ Bar[bool].Do : $\forall$S. S $\times$ bool $\rightarrow$ int 
+func (x Bar[type T Any[]]) Do[type S Any[]](a S, b T) Int[] { 
+    return Int[]{}
+ };
+
+func (x Dummy[type ]) Main[type ](t Any[]) Any[] {
+    // return t.(Foo[Int[]])
+    return t.(Foo[Bool[]])
+};
+
+func main() {
+    // $\vdash$ Foo[int].Do : $\forall$S. S $\times$ bool $\rightarrow$ int 
+    // _ = Bar[Bool[]]{}.(Foo[Int[]]) // Safe
+    _ = Dummy[]{}.Main[](Bar[Bool[]]{})
+    // $\vdash$ Foo[bool].Do : $\forall$S. S $\times$ bool $\rightarrow$ bool 
+    // Bar[bool]{}.(Foo[bool]) // PANIC
+}
