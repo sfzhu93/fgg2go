@@ -1,0 +1,44 @@
+package main;
+
+type Color[type ] interface{};
+type Top[type ] struct {};
+//func (this Top[type ]) Recv[type b1 Color[]](x chan b1) b1 {return <-x};
+func (this Top[type ]) Op[type ]() Top[] {return Top[]{}};
+
+type Red[type ] struct {};
+type Blue[type ] struct {};
+
+func (this Top[type ]) do[type ](x Color[]) Top[] {
+return this
+};
+type Base[type b1 Color[],b2 Color[]] interface {
+g_chan[type]() Top[];
+g1[type ](p1 b1,p2 b2) Base[b1,b2];
+g2[type ](p1 b1,p2 b2) Base[b1,b2]};
+type Derived[type b1 Color[],b2 Color[]] struct{};
+func (this Derived[type b1 Color[],b2 Color[]]) g_chan[type ]() Top[] {
+return Top[]{}.Op[]().Op[]()
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g1[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Derived[type b1 Color[],b2 Color[]]) g2[type ](p1 b1,p2 b2) Base[b1,b2]{
+ return this
+};
+func (this Top[type ]) f0[type b1 Color[],b2 Color[], d_ Base[b1,b2]](x d_, p1 b1,p2 b2) Top[] {
+return this.do[](x.g1[](p1,p2)).do[](x.g2[](p1,p2)).do[](x.g_chan[]())
+};
+func (this Top[type ]) f4[type b1 Color[],b2 Color[]](p1 b1,p2 b2) Top[] {
+return this.f0[b1,b2, Derived[b1,b2]](Derived[b1,b2]{}, p1,p2)
+};func (this Top[type ]) f1[type b1 Color[],b2 Color[]]( p1 b1,p2 b2) Top[] {
+return this.f2[b1,b2](p1,p2)
+};
+func (this Top[type ]) f2[type b1 Color[],b2 Color[]]( p1 b1,p2 b2) Top[] {
+return this.f3[b1,b2](p1,p2)
+};
+func (this Top[type ]) f3[type b1 Color[],b2 Color[]]( p1 b1,p2 b2) Top[] {
+return this.f4[b1,b2](p1,p2)
+};
+
+func main(){
+_ = Top[]{}.f1[Red[], Red[]](Red[]{},Red[]{}).f1[Red[], Blue[]](Red[]{},Blue[]{}).f1[Blue[], Red[]](Blue[]{},Red[]{}).f1[Blue[], Blue[]](Blue[]{},Blue[]{})}
