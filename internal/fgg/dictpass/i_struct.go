@@ -57,6 +57,8 @@ func (this DictPassTranslator) TranslateSTypeLit(sdecl fgg.STypeLit) []fg.Decl {
 				Body: fmt.Sprintf("this._type_%[1]d.assertEq(x.(%s)._type_%[1]d)", i, metadata_struct_name),
 			})
 		}
+		// TODO: we need a x.(t_S) assertion here, according to d-struct in the oopsla paper.
+		// However, this expression is incorrect in standard Go.
 		assertEq_b = append(assertEq_b, fg.OtherStmt{"return this"})
 		func_assertEq := fg.NewMDecl(
 			fg.NewParamDecl("this", fg.Type(metadata_struct_name)),
